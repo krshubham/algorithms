@@ -64,6 +64,8 @@ void prims_algorithm(int *visited,vector<pair<int,int>>*v1,int z,priority_queue<
 	for (it1 = v1[z].begin();it1 != v1[z].end();it1++){
 		k = (*it1).first;
 		weight = (*it1).second;
+		cout<<"k= "<<k<<endl;
+		cout<<"weight= "<<weight<<endl;
 		if (visited[k] == 0 && weight<key[k]){
 			pq.push(make_pair(weight,k));
 			parent[k] = z;
@@ -99,13 +101,14 @@ int main(){
 	}
 	while(!pq.empty()){
 		z = pq.top().second;
+		cout<<"z= "<<z<<endl;
 		visited[z] = 1;
 		prims_algorithm(visited,v1,z,pq,parent,key);
 		pq.pop();
 	}
 	for (int i=1;i<v;i++)
 	{
-		cout<<parent[i]<<" "<<i<<endl;
+		cout<<i<<""
 	}
 
 
