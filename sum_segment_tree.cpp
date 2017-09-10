@@ -14,17 +14,14 @@ void construct(int *arr,int *segtree,int low,int high,int pos){
 }
 
 void get_sum(int *segtree,int qlow,int qhigh,int low,int high,int pos,int &sum){
-	if (qlow<=low && ghigh>=high){
+	if (qlow<=low && qhigh>=high){
 		sum += segtree[pos];
 		return;		
 	}
 	else if (qlow>high || qhigh<low){
 		return;
-	}for (int i=0;i<4*n;i++){
-		if (segtree[i] != -1){
-			cout<<segtree[i]<<" ";
-		}
 	}
+
 	int mid = (low+high)/2;
 	get_sum(segtree,qlow,qhigh,low,mid,2*pos+1,sum);
 	get_sum(segtree,qlow,qhigh,mid+1,high,2*pos+2,sum);
