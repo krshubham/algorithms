@@ -28,10 +28,22 @@ void get_sum(int *segtree,int qlow,int qhigh,int low,int high,int pos,int &sum){
 
 
 }
+void update(int *segtree,int qlow,int qhigh,int low,int high,int pos){
+	if (low == high){
+		segtree[pos] += add;
+		return;
+	}
+	int mid = (low+high)/2;
+	update(segtree,qlow,qhigh,low,mid,2*pos+1);
+	update(segtree,qlow,qhigh,mid+1,high,2*pos+2);
+
+
+
+}
 
 
 int main(){
-	int n,qlow,qhigh,sum=0;
+	int n,qlow,qhigh,sum=0,add;
 	cin>>n;
 	int arr[n];
 	int segtree[4*n];
@@ -45,7 +57,13 @@ int main(){
 	cin>>qlow>>qhigh;
 
 	get_sum(segtree,qlow,qhigh,0,n-1,0,sum);
-	cout<<"sum = "<<sum<<endl;
+	cout<<"earlier sum = "<<sum<<endl;
+	cin>>add;
+	sum = 0;
+	update(segtree,qlow,qhigh,0,n-1,0,add);
+	construct(arr,segtree,0,n-1,0);
+	get_sum(segtree,qlow,qhigh,0,n-1,0,sum);
+	cout<<"latest sum= "<<sum<<endl;
 	/*for (int i=0;i<4*n;i++){
 		if (segtree[i] != -1){
 			cout<<segtree[i]<<" ";
