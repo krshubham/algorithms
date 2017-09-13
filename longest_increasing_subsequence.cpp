@@ -10,7 +10,7 @@ int linear_search(int *arr,int m,int n){
 }
 
 int main(){
-	int n,m,x,y,z,k=0,max,min,temp2,temp3,temp4;
+	int n,m,x,y,z,k=0,max,min,temp2,temp3,temp4,count=0;
 	cin>>n;
 	vector<int>v1;
 	vector<int> :: reverse_iterator it1;
@@ -59,20 +59,27 @@ int main(){
 		}
 
 	}
-	/*for (int i=0;i<k;i++){
+	/*for (int i=0;i<n;i++){
 		cout<<arr3[i]<<" ";	
 	}*/
 	int i = arr2[k-1];
 	i = linear_search(arr,i,n);
+	//cout<<"i= "<<i<<endl;
 	while(arr3[i] != -1){
+		count++;
 		v1.push_back(arr[i]);
 		i = arr3[i];
-		if (arr3[i] == -1)
-			temp2 = i;
+		if (arr3[i] == -1){
+			cout<<arr[i]<<" ";
+
+		}
 	}
-	cout<<arr[temp2]<<" ";
-	for (it1 = v1.rbegin();it1 != v1.rend();it1++){
+	if (count == 0)
+		cout<<arr[0]<<" ";
+	else{
+		for (it1 = v1.rbegin();it1 != v1.rend();it1++){
 		cout<<*it1<<" ";
+		}
 	}
 	//cout<<arr[temp];
 
