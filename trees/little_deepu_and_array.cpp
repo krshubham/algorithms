@@ -96,6 +96,8 @@
         int arr[n];
         int segtree[4*n];
         int lazy[4*n];
+        int b[4*n];
+        fill(b,b+(4*n),0);
         fill(segtree,segtree+(4*n),0);
         fill(lazy,lazy+(4*n),0);
         for (int i=0;i<n;i++)
@@ -124,10 +126,8 @@
         }
         cout<<endl;*/
         update(segtree,lazy,0,n-1,0);
-
-     
-     
-        print(segtree,0,n-1,0);
+        func(b,segtree,0,n-1,0);
+            
      
      
     }
