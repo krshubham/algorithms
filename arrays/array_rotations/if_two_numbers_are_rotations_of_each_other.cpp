@@ -1,4 +1,4 @@
-
+#include <bits/stdc++.h>
 using namespace std;
 
 #define bye return 0
@@ -58,4 +58,51 @@ inline int binSearch(int arr[],int val,int b){
     }
     return 0;
 }
+ll arr[1000000];
 
+string bin(ll a){
+	string x;
+	ll k =0;
+	while(a !=0){
+		if (a%2 == 1){
+			arr[k++] = '1';			
+		}
+		else
+			arr[k++] = '0';
+		a >>= 1;
+	}
+	for (int i=k-1;i>=0;i--)
+		x += arr[i];
+	return x;
+}
+
+int main(){
+	ll a,b;
+	cin>>a>>b;
+	string x,y,z;
+	x = bin(a);
+	y = bin(b);
+	/*cout<<"x= "<<x<<endl;
+	cout<<"y= "<<y<<endl;*/
+	if (a>b){
+		z = x+x;
+		ll i = z.find(y);
+		if (i == -1)
+			cout<<"no"<<endl;
+		else
+			cout<<"yes"<<endl;			
+	}
+	else{
+		z = y+y;
+		ll i = z.find(x);
+		if (i == -1)
+			cout<<"no"<<endl;
+		else
+			cout<<"yes"<<endl;	
+	}
+	
+	
+	
+	
+
+}
