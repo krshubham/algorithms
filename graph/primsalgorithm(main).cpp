@@ -58,58 +58,50 @@ inline int binSearch(int arr[],int val,int b){
     }
     return 0;
 }
-void prims_algorithm(int *visited,vector<pair<int,int>>*v1,int z,priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>&pq,int *parent,int *key){
-	vector<pair<int,int>>::iterator it1;
-	int k,weight;
-	for (it1 = v1[z].begin();it1 != v1[z].end();it1++){
-		k = (*it1).first;
-		weight = (*it1).second;
-		/*cout<<"k= "<<k<<endl;
-		cout<<"weight= "<<weight<<endl;*/
-		if (visited[k] == 0 && weight<key[k]){
-			pq.push(make_pair(weight,k));
-			parent[k] = z;
-			key[k] = weight;
+
+
+void prims_algorithm(priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>>&pq,ll i,vector<pair<ll,ll>>*v1,ll *k,ll *vi){
+	if (vi[i] == 1)
+		return;
+	vector<pair<ll,ll>> :: iterator it1;
+
+	for (it1 = v1[i].begin();it1 != v1[i].end();it1++){
+		if (it1->second<k[it1->first] && vi[it1->first] == 0){
+			k[it1->first] = it1->second;
+			pq.push(mp(k[it1->first],it1->first));
 		}
 	}
+	vi[i] = 1;
 }
 
-
-
 int main(){
-	int v,e,x,y,z,w,a,b;
+	ll v,e,x,y,z,a,b,c;
 	cin>>v>>e;
-	cin>>a>>b;
-	vector<pair<int,int>>v1[v];
-	priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-	for (int i=0;i<e;i++){
-		cin>>x>>y>>w;
-		v1[x-1].push_back(make_pair(y-1,w));
-		v1[y-1].push_back(make_pair(x-1,w));
-	}
-	int visited[v];
-	int parent[v-1];
-	int key[v];
-	for (int i=0;i<v;i++)
-		visited[i] = 0;
-	pq.push(make_pair(0,0));
-	for (int i=1;i<v;i++){
-		parent[i] = -1;
-	}
-	key[0] = 0;
-	for (int i=1;i<v;i++){
-		key[i] = INT_MAX;
-	}
-	while(!pq.empty()){
-		z = pq.top().second;
-		visited[z] = 1;
-		prims_algorithm(visited,v1,z,pq,parent,key);
-		pq.pop();
-	}
-	int ans = 0;
-	for (int i=0;i<v;i++)
-		ans += key[i];
+	priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>>pq;
 
-	cout<<ans<<endl;
+	vector<pair<ll,ll>>v1[v];
+
+	for (int i=0;i<e;i++){
+		cin>>x>>y>>z;
+		v1[x].pb(mp(y,z));
+		v1[y].pb(mp(x,z));
+	}
+
+	ll vi[v];
+	ll k[v];
+	k[0] = 0;
+	fill(vi,vi+v,0);
+	fill(k+1,k+v,INT_MAX);
+	pq.push(mp(0,0));
+
+	while (!pq.empty()){
+		x = pq.top().second;
+		pq.pop();
+		prims_algorithm(pq,x,v1,k,vi);
+	}
+
+	for (int i=0;i<v;i++)
+		cout<<k[i]<<" ";
+
 
 }
