@@ -71,6 +71,8 @@ public:
 	int len();
 	void print();
 	void del(int k);
+	// method to be called when we wish 
+	T operator [](int x);
 };
 
 // constructor to be called when the limit of the container is given to us.
@@ -131,6 +133,11 @@ void vec<T> :: del(int k){
 	size--;
 }
 
+template<class T>
+T vec<T> :: operator [](int x){
+	return arr[x];
+}
+
 
 int main(){
 	vec<int>v;
@@ -151,5 +158,8 @@ int main(){
 	v2.del(0);
 	v.print();
 	v2.print();
+
+	string bb= v2[0];
+	cout<<bb<<endl;
 }
 
