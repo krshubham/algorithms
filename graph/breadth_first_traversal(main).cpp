@@ -1,14 +1,4 @@
-#include <iostream>
-#include <cstdio>
-#include <vector>
-#include <algorithm>
-#include <set>
-#include <map>
-#include <cmath>
-#include <utility>
-#include <list>
-#include <iomanip>
-#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define bye return 0
@@ -68,43 +58,38 @@ inline int binSearch(int arr[],int val,int b){
     }
     return 0;
 }
-void bfs(int m,queue<int> &q1,vector<int>*v1,int *visited){
-	vector<int> :: iterator it1;
-	for (it1 = v1[m].begin();it1 != v1[m].end();it1++){
-		if (visited[*it1] == 0){
-			q1.push(*it1);
-			visited[*it1] = 1;			
-		}
 
+void bfs(vector<ll>*v1,queue<ll>&q,ll *vis,ll x){
+	if (vis[x] == 1)
+		return;
+	vector<ll> :: iterator it1;
+
+	for (it1=v1[x].begin();it1!=v1[x].end();it1++){
+		q.push(*it1);
 	}
+	vis[x] = 1;
+
 }
+
 
 int main(){
-	int v,x,y,m,n;
-	cin>>v;
-	vector<int>v1[v];
-	vector<int> :: iterator it1;
-	queue<int> q1;
-	int visited[v];
-	for (int i=0;i<v;i++)
-		visited[i] = 0;
-	for (int i=0;i<v;i++){
+	ll v,e,x,y,z;
+	cin>>v>>e;
+	vector<ll>v1[v];
+	queue<ll>q;
+
+	for (int i=0;i<e;i++){
 		cin>>x>>y;
-		v1[x].push_back(y);
+		v1[x].pb(y);
 	}
-	
+	q.push(2);
+	ll vis[v];
+	fill(vis,vis+v,0);
 
-
-	for (int i=0;i<v;i++){
-		if (visited[i] == 0){
-			visited[i] = 1;
-			q1.push(i);
-		}
-		while(!q1.empty()){
-			m = q1.front();
-			//visited[m] = 1;
-			bfs(m,q1,v1,visited);
-			q1.pop();
-		}
+	while(!q.empty()){
+		x = q.front();
+		q.pop();
+		bfs(v1,q,vis,x);
 	}
 }
+
