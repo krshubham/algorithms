@@ -1,14 +1,4 @@
-#include <iostream>
-#include <cstdio>
-#include <vector>
-#include <algorithm>
-#include <set>
-#include <map>
-#include <cmath>
-#include <utility>
-#include <list>
-#include <iomanip>
-#include <stack>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define bye return 0
@@ -69,39 +59,41 @@ inline int binSearch(int arr[],int val,int b){
     return 0;
 }
 
-void topological_sort(int m,vector<int> *v1,stack<int> &stack,int *visited){
-	vector<int> :: iterator it1;
-	visited[m] = 1;
-	for (it1 = v1[m].begin();it1 != v1[m].end();it1++){
-		if (visited[*it1] == 0)
-			topological_sort(*it1,v1,stack,visited);
 
+void dfs(vector<ll>*v1,stack<ll>&s,ll *vis,ll i){
+	vector<ll>::iterator it1;
+	for (it1=v1[i].begin();it1!=v1[i].end();it1++){
+		if (vis[*it1] == 0){
+			vis[*it1] = 1;
+			dfs(v1,s,vis,*it1);
+			s.push(*it1);
+		}
 	}
-	stack.push(m);
 }
 
 int main(){
-	int v,x,y;
-	cin>>v;
-	vector<int>v1[v];
-	stack<int> stack;
-	int visited[v];
-	for (int i=0;i<v;i++)
-		visited[i] = 0;
-
-	for (int i=0;i<v;i++){
+	ll v,e,x,y;
+	cin>>v>>e;
+	vector<ll>v1[v];
+	stack<ll>s;
+	for (int i=0;i<e;i++){
 		cin>>x>>y;
-		v1[x].push_back(y);
+		v1[x-1].pb(y-1);
 	}
+	ll vis[v];
+	fill(vis,vis+v,0);
 
 	for (int i=0;i<v;i++){
-		if (visited[i] == 0)
-			topological_sort(i,v1,stack,visited);
-	}
-	for (int i=0;i<v;i++){
-		cout<<stack.top()<<endl;
-		stack.pop();
+		if (vis[i] == 0){
+			vis[i] = 1;
+			dfs(v1,s,vis,i);
+			s.push(i);
+		}
 	}
 
-
+	while(!s.empty()){
+		cout<<s.top()+1<<" ";
+		s.pop();
+	}
 }
+
