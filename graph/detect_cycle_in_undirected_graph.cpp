@@ -58,55 +58,51 @@ inline int binSearch(int arr[],int val,int b){
     }
     return 0;
 }
-
-ll  t = 0;
-void dfs(vector<ll>*v1,vector<ll>&v2,ll *v,ll i){
-
-	v2.pb(i);
-
+ll t = 0;
+void dfs(vector<ll>*v1,ll *v,ll *p,ll i){
+	if (t==1)
+		return;
 	vector<ll>::iterator it1;
-	vector<ll>::iterator it2;
-
 	for (it1=v1[i].begin();it1!=v1[i].end();it1++){
 		if (t==1)
 			return;
-		for (it2=v2.begin();it2!=v2.end();it2++){
-			if (*it1 == *it2){
-				cout<<"Cycle Exists"<<endl;
-				t = 1;
-				return;
-			}
-		}
-
 		if (v[*it1]==0){
 			v[*it1] = 1;
-			dfs(v1,v2,v,*it1);
+			p[*it1] = i;
+			dfs(v1,v,p,*it1);
+		}
+		else if (v[*it1]==1 && p[i]!=*it1){
+			cout<<"Cycle Exists"<<endl;
+			t = 1;
+			return;
 		}
 	}
-	v2.pop_back();
-
 }
 
 int main(){
-	ll n,e,x,y;
+	ll n,e,x,y,z;
 	cin>>n>>e;
-
 	vector<ll>v1[n];
-	vector<ll>v2;
 
 	for (int i=0;i<e;i++){
 		cin>>x>>y;
-		v1[x-1].pb(y-1);
+		v1[x].pb(y);
+		v1[y].pb(x);
 	}
+
 	ll v[n];
 	fill(v,v+n,0);
+	ll p[n];
+	fill(p,p+n,-1);
 
 	for (int i=0;i<n;i++){
-		if (v[i] == 0){
-			v[i] = 1;
-			dfs(v1,v2,v,i);
+		if (v[i]==0){
+			v[i]=1;
+			p[i]=-1;
+			dfs(v1,v,p,i);
 		}
 	}
-
+	if (t==0)
+		cout<<"cycle does not exist"<<endl;
 }
 
