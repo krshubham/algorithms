@@ -58,50 +58,41 @@ inline int binSearch(int arr[],int val,int b){
     }
     return 0;
 }
-
-
-void dijkstraw(priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>>&pq,ll i,vector<pair<ll,ll>>*v1,ll *k,ll *vi){
-	if (vi[i] == 1)
-		return;
-	vector<pair<ll,ll>> :: iterator it1;
-
-	for (it1 = v1[i].begin();it1 != v1[i].end();it1++){
-		if (k[i]+it1->second<k[it1->first] && vi[it1->first] == 0){
-			k[it1->first] = k[i]+it1->second;
-			pq.push(mp(k[it1->first],it1->first));
+void all_topological_sort(vector<ll>*v1,ll *ind,ll *v,vector<ll>&res,ll n){
+	vector<ll>::iterator it1;
+	bool flag = false;
+	for (int i=0;i<n;i++){
+		if (v[i]==0 &&ind[i]==0){
+			v[i]=1;
+			res.pb(i);
+			for (it1=v1[i].begin();it1!=v1[i].end();it1++)
+				ind[*it1]--;
+			all_topological_sort(v1,ind,v,res,n);
+			flag = true;
+			
 		}
 	}
-	vi[i] = 1;
+	if (!flag){
+		for (int i=0;i<n;i++)
+			cout<<res[i]<<" ";
+		cout<<endl;
+	}
 }
 
 int main(){
-	ll v,e,x,y,z,a,b,c;
-	cin>>v>>e;
-	priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>>pq;
-
-	vector<pair<ll,ll>>v1[v];
-
+	ll n,e,x,y,z;
+	cin>>n>>e;
+	vector<ll>res;
+	vector<ll>v1[n];
+	ll v[n];
+	ll ind[n];
+	fill(v,v+n,0);
+	fill(ind,ind+n,0);
 	for (int i=0;i<e;i++){
-		cin>>x>>y>>z;
-		v1[x-1].pb(mp(y-1,z));
-		v1[y-1].pb(mp(x-1,z));
+		cin>>x>>y;
+		v1[x].pb(y);
+		ind[y]++;
 	}
-
-	ll vi[v];
-	ll k[v];
-	k[0] = 0;
-	fill(vi,vi+v,0);
-	fill(k+1,k+v,INT_MAX);
-	pq.push(mp(0,0));
-
-	while (!pq.empty()){
-		x = pq.top().second;
-		pq.pop();
-		dijkstraw(pq,x,v1,k,vi);
-	}
-
-	for (int i=0;i<v;i++)
-		cout<<k[i]<<" ";
-
+	all_topological_sort(v1,ind,v,res,n);
 
 }
