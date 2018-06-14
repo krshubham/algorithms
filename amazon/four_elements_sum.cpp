@@ -32,8 +32,8 @@ int main(){
 		for (int i=0;i<n;i++)
 			cin>>arr[i];
 
-		vector<pair<ll,pair<ll,ll>>>v1;
-		vector<pair<ll,pair<ll,ll>>>::iterator it1;
+		vector<pair<ll,pair<ll,ll>>> v1;
+		vector<pair<ll,pair<ll,ll>>> :: iterator it1;
 		vector<ll>v2;
 		vector<ll>::iterator it2;
 		ll sum;
