@@ -154,16 +154,15 @@ defineOutFor(ull)
  
 #define PROD //clocking off
 
-struct node{
-	ll data;
-	struct node* next;
-};
-
-struct node *newnode(){
-	struct node *temp = new node;
-	temp->data = 0;
-	temp->next = NULL;
-	return temp;
+int lookup[100000];
+int fib(int x){
+	if (lookup[x] == -1){
+		if (x<=1)
+			return x;
+		else
+			return fib(x-1)+fib(x-2);
+	}
+	return lookup[x];
 }
 
 #ifndef PROD
@@ -173,9 +172,16 @@ start_s=clock();
  
 
 int main(int argc,char *argv[]){
-	ll n;
+	int n,x,y,z;
 	cin>>n;
-	
+	fill(lookup,lookup+100000,-1);
+
+	for (int i=0;i<n;i++){
+		cin>>x;
+		x = fib(x);
+		cout<<x<<endl;
+	}
+
 }
 
  

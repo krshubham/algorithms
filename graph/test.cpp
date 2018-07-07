@@ -154,18 +154,6 @@ defineOutFor(ull)
  
 #define PROD //clocking off
 
-struct node{
-	ll data;
-	struct node* next;
-};
-
-struct node *newnode(){
-	struct node *temp = new node;
-	temp->data = 0;
-	temp->next = NULL;
-	return temp;
-}
-
 #ifndef PROD
 clock_t stop_s,start_s;
 start_s=clock();
@@ -173,9 +161,13 @@ start_s=clock();
  
 
 int main(int argc,char *argv[]){
-	ll n;
-	cin>>n;
-	
+	string x = "raghav";
+	sort(x.begin(),x.end());
+
+	do{
+		cout<<x<<endl;
+	}while(next_permutation(x.begin(),x.end()));
+
 }
 
  
